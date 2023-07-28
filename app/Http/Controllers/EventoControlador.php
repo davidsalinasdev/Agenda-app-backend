@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use App\Models\Evento;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -152,8 +153,10 @@ class EventoControlador extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validar que el servidor exista
+        // Validar que el servidor exista;
         $evento = Evento::find($id);
+
+        $eventoFechaHora = $evento->fecha_hora_evento;
 
         if (!empty($evento)) {
 
@@ -167,7 +170,6 @@ class EventoControlador extends Controller
                 'fecha_hora_evento' => 'required',
                 'etiqueta' => 'required',
                 'estado' => 'required',
-                'estado' => 'required'
             ]);
 
             // 2.-Recoger los usuarios por post
@@ -194,20 +196,35 @@ class EventoControlador extends Controller
 
                 try {
 
-                    // Transaccion con eloquent
-                    DB::transaction(function () use ($id, $paramsArray) {
-                        Evento::where('id', $id)->update($paramsArray);
-                    }, 2); // Cantidad de intentos 
+                    // Convierte las fechas en objetos DateTime para una comparación adecuada
+                    $eventoFecha = new DateTime($eventoFechaHora);
+                    $paramsFecha = new DateTime($params->fecha_hora_evento);
 
-                    // Fin transacción
-                    // 6.- Devolver el array con el resultado.
-                    $data = array(
-                        'status' => 'success',
-                        'code' => 200,
-                        'message' => 'Los datos se  modificaron correctamente',
-                        'evento' => Evento::find($id),
-                        'changes' => $paramsArray
-                    );
+                    $fechaActual = new DateTime(); // Fecha y hora actual
+
+                    // Compara las fechas
+                    if ($paramsFecha >= $fechaActual || $paramsFecha == $eventoFecha) {
+                        // Transaccion con eloquent
+                        DB::transaction(function () use ($id, $paramsArray) {
+                            Evento::where('id', $id)->update($paramsArray);
+                        }, 2); // Cantidad de intentos 
+
+                        // Fin transacción
+                        // 6.- Devolver el array con el resultado.
+                        $data = array(
+                            'status' => 'success',
+                            'code' => 200,
+                            'message' => 'Los datos se  modificaron correctamente',
+                            'evento' => Evento::find($id),
+                            'changes' => $paramsArray
+                        );
+                    } else {
+                        $data = array(
+                            'status' => 'error',
+                            'code' => 200,
+                            'message' => '¡Error! La fecha y hora es anterior a la actual.'
+                        );
+                    }
                 } catch (\Exception $e) {
                     $data = array(
                         'status' => 'error',
