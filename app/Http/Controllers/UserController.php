@@ -81,9 +81,8 @@ class UserController extends Controller
 
         // 2.-Validar datos
         $validate = Validator::make($request->all(), [
-            'nombres' => 'required|regex:/^[a-zA-Z\s]+$/',
-            'paterno' => 'required|regex:/^[a-zA-Z\s]+$/',
-            'materno' => 'required|regex:/^[a-zA-Z\s]+$/',
+            'nombres' => 'required',
+            'cargo' => 'required',
             'roluser' => 'required',
             'user' => 'required|unique:users,user',
             'password' => 'required',
@@ -108,8 +107,7 @@ class UserController extends Controller
             // Crear el objeto usuario para guardar en la base de datos
             $user = new User();
             $user->nombres = $params->nombres;
-            $user->paterno = $params->paterno;
-            $user->materno = $params->materno;
+            $user->cargo = $params->cargo;
             $user->rol = $params->roluser;
             $user->user = $params->user;
             $user->password = $pwd;
@@ -181,9 +179,8 @@ class UserController extends Controller
             $user = $usuario->user;
             // 1.- Validar datos recogidos por POST. pasando al getIdentity true
             $validate = Validator::make($request->all(), [
-                'nombres' => 'required|regex:/^[a-zA-Z\s]+$/',
-                'paterno' => 'required|regex:/^[a-zA-Z\s]+$/',
-                'materno' => 'required|regex:/^[a-zA-Z\s]+$/',
+                'nombres' => 'required',
+                'cargo' => 'required',
                 'user' => 'required',
                 'estado' => 'required',
                 'rol' => 'required',
@@ -264,8 +261,7 @@ class UserController extends Controller
             // Quitar los campos que no quiero actualizar de la peticion.
             unset($paramsArray['id']);
             unset($paramsArray['nombres']);
-            unset($paramsArray['paterno']);
-            unset($paramsArray['materno']);
+            unset($paramsArray['cargo']);
             unset($paramsArray['rol']);
             unset($paramsArray['user']);
             unset($paramsArray['password']);
@@ -273,7 +269,7 @@ class UserController extends Controller
             unset($paramsArray['updated_at']);
 
             // Campo stado a modificar
-            $paramsArray['estado'] = 'no habilitado';
+            $paramsArray['estado'] = 'No habilitado';
 
             try {
                 // 5.- Actualizar los datos en la base de datos.
@@ -317,8 +313,7 @@ class UserController extends Controller
             $user = User::where(function ($query) use ($texto) {
                 $query->where('nombres', 'ilike', "%{$texto}%")
                     ->orWhere('id', 'ilike', "%{$texto}%")
-                    ->orWhere('paterno', 'ilike', "%{$texto}%")
-                    ->orWhere('materno', 'ilike', "%{$texto}%");
+                    ->orWhere('cargo', 'ilike', "%{$texto}%");
                 // ->orWhere('estado', 'ilike', "%{$texto}%");
             })
                 ->orderBy('id', 'DESC')

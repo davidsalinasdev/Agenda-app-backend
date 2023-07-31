@@ -17,59 +17,64 @@ class UsuariosSeeder extends Seeder
 
         // Administrador
         $user = new User();
-        $user->nombres = "Administrador";
-        $user->paterno = "sitio";
-        $user->materno = "web";
-        $user->user = "Administrador";
+        $user->nombres = "Joel_admin";
+        $user->cargo = "Profesional 2";
+        $user->user = "Admin";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Administrador';
-        $user->estado = 'habilitado';
+        $user->estado = 'Habilitado';
+        $user->save();
+
+        // Administrador 2
+        $user = new User();
+        $user->nombres = "Joel_admin_2";
+        $user->cargo = "Profesional 2";
+        $user->user = "Admin_2";
+        $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
+        $user->rol = 'Administrador';
+        $user->estado = 'Habilitado';
         $user->save();
 
         // Funcionario_1
         $user = new User();
-        $user->nombres = "Funcionario_1";
-        $user->paterno = "Salinas";
-        $user->materno = "Poma";
+        $user->nombres = "David Funcionario_1";
+        $user->cargo = "Gerente";
         $user->user = "funcionario_1";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Funcionario';
-        $user->estado = 'habilitado';
+        $user->estado = 'Habilitado';
         $user->save();
 
         // Funcionario_2
         $user = new User();
-        $user->nombres = "Funcionario_2";
-        $user->paterno = "Salinas";
-        $user->materno = "Poma";
+        $user->nombres = "Raul Funcionario_2";
+        $user->cargo = "Gerente";
         $user->user = "funcionario_2";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Funcionario';
-        $user->estado = 'habilitado';
+        $user->estado = 'Habilitado';
         $user->save();
 
         // Funcionario_3
         $user = new User();
-        $user->nombres = "Funcionario_3";
-        $user->paterno = "Salinas";
-        $user->materno = "Poma";
+        $user->nombres = "Marce Funcionario_3";
+        $user->cargo = "Gerente";
         $user->user = "funcionario_3";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Funcionario';
-        $user->estado = 'habilitado';
+        $user->estado = 'Habilitado';
         $user->save();
 
 
 
         // Invitado
         $user = new User();
-        $user->nombres = "Invitado";
-        $user->paterno = "Salinas";
-        $user->materno = "Poma";
+        $user->nombres = "Naomi Invitado";
+        $user->cargo = "Gerente";
         $user->user = "Invitado";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Invitado';
-        $user->estado = 'habilitado';
+        $user->estado = 'Habilitado';
         $user->save();
     }
 }
