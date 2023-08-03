@@ -48,6 +48,7 @@ class EventoControlador extends Controller
             'fecha_hora_evento' => 'required',
             'etiqueta' => 'required',
             'estado' => 'required',
+            'alcance' => 'required',
             'users_id' => 'required',
         ]);
 
@@ -71,6 +72,7 @@ class EventoControlador extends Controller
             $evento->fecha_hora_evento = $params->fecha_hora_evento;
             $evento->etiqueta = $params->etiqueta;
             $evento->estado = $params->estado;
+            $evento->alcance = $params->alcance;
             $evento->users_id = $params->users_id;
 
             // Transacciones en laravel
@@ -171,6 +173,7 @@ class EventoControlador extends Controller
                 'lugar_evento' => 'required',
                 'fecha_hora_evento' => 'required',
                 'estado' => 'required',
+                'alcance' => 'required',
                 'etiqueta' => 'required',
             ]);
 
