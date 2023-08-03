@@ -19,7 +19,7 @@ class CreateEventosTable extends Migration
             $table->string('lugar_evento');
             $table->string('fecha_hora_evento');
             $table->string('etiqueta');
-            $table->string('estado')->default('Abierto');
+            $table->string('estado');
             $table->foreignId('users_id')->constrained('users')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });

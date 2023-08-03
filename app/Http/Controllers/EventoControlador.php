@@ -47,6 +47,7 @@ class EventoControlador extends Controller
             'lugar_evento' => 'required',
             'fecha_hora_evento' => 'required',
             'etiqueta' => 'required',
+            'estado' => 'required',
             'users_id' => 'required',
         ]);
 
@@ -69,6 +70,7 @@ class EventoControlador extends Controller
             $evento->lugar_evento = $params->lugar_evento;
             $evento->fecha_hora_evento = $params->fecha_hora_evento;
             $evento->etiqueta = $params->etiqueta;
+            $evento->estado = $params->estado;
             $evento->users_id = $params->users_id;
 
             // Transacciones en laravel
@@ -168,8 +170,8 @@ class EventoControlador extends Controller
                 'evento' => 'required',
                 'lugar_evento' => 'required',
                 'fecha_hora_evento' => 'required',
-                'etiqueta' => 'required',
                 'estado' => 'required',
+                'etiqueta' => 'required',
             ]);
 
             // 2.-Recoger los usuarios por post

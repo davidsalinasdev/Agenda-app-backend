@@ -17,9 +17,9 @@ class UsuariosSeeder extends Seeder
 
         // Administrador
         $user = new User();
-        $user->nombres = "Joel_admin";
-        $user->cargo = "Profesional 2";
-        $user->user = "Admin";
+        $user->nombres = "David Salinas Poma";
+        $user->cargo = "Admin II - UGE";
+        $user->user = "dsalinasp";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Administrador';
         $user->estado = 'Habilitado';
@@ -27,9 +27,9 @@ class UsuariosSeeder extends Seeder
 
         // Administrador 2
         $user = new User();
-        $user->nombres = "Joel_admin_2";
-        $user->cargo = "Profesional 2";
-        $user->user = "Admin_2";
+        $user->nombres = "Demetrio Pinto Vargas";
+        $user->cargo = "Jefe de unidad - UGE";
+        $user->user = "dpintov";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Administrador';
         $user->estado = 'Habilitado';
@@ -37,9 +37,9 @@ class UsuariosSeeder extends Seeder
 
         // Funcionario_1
         $user = new User();
-        $user->nombres = "David Funcionario_1";
-        $user->cargo = "Gerente";
-        $user->user = "funcionario_1";
+        $user->nombres = "Evert Rojas";
+        $user->cargo = "Profesional II - UGE";
+        $user->user = "erojas";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Funcionario';
         $user->estado = 'Habilitado';
@@ -47,9 +47,9 @@ class UsuariosSeeder extends Seeder
 
         // Funcionario_2
         $user = new User();
-        $user->nombres = "Raul Funcionario_2";
-        $user->cargo = "Gerente";
-        $user->user = "funcionario_2";
+        $user->nombres = "Rodrigo Pinto Crispin";
+        $user->cargo = "Profesional II -UGE";
+        $user->user = "rpintoc";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Funcionario';
         $user->estado = 'Habilitado';
@@ -57,9 +57,9 @@ class UsuariosSeeder extends Seeder
 
         // Funcionario_3
         $user = new User();
-        $user->nombres = "Marce Funcionario_3";
-        $user->cargo = "Gerente";
-        $user->user = "funcionario_3";
+        $user->nombres = "Amalia Vila";
+        $user->cargo = "Profesional I -UGE";
+        $user->user = "amaliav";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Funcionario';
         $user->estado = 'Habilitado';
@@ -69,9 +69,9 @@ class UsuariosSeeder extends Seeder
 
         // Invitado
         $user = new User();
-        $user->nombres = "Naomi Invitado";
-        $user->cargo = "Gerente";
-        $user->user = "Invitado";
+        $user->nombres = "Naomi Orellana";
+        $user->cargo = "Administrativo I - SDPLA";
+        $user->user = "norellana";
         $user->password = "dd27564ac5d8b5065d5986d0f9e92fb91e71a23f9f5c13e599985c646c078a16"; //1231230
         $user->rol = 'Invitado';
         $user->estado = 'Habilitado';

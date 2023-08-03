@@ -40,7 +40,7 @@ class UserController extends Controller
             // Cifrar la PASSWORD.
             $pwd = hash('sha256', $params->password); // para verificar que las contraseña a consultar sean iguales.
 
-            $singup = $jwtauth->singup($params->user, $pwd); // Por defecto token codificado.
+            $singup = $jwtauth->singup($params->user, $pwd); // Por defecto token codificado. token
 
             if (!empty($params->getToken)) { // si existe y no esta vacio y no es NULL.
                 $singup = $jwtauth->singup($params->user, $pwd, true); // Token decodificado en un objeto.
@@ -335,5 +335,64 @@ class UserController extends Controller
         }
 
         return response()->json($data, $data['code']);
+    }
+
+    // Actualizaccion de contraseña
+    public function changesPassword(Request $request)
+    {
+        // 2.-Recoger los usuarios por post
+        $params = (object) $request->all(); // Devuelve un obejto
+        $paramsArray = $request->all(); // Es un array
+
+        // 3.- Validar datos recogidos por POST. 
+        $validate = Validator::make($paramsArray, [
+            'idUsuario' => 'required',
+            'password' => 'required',
+        ]);
+
+        // // Comprobar si los datos son validos
+        if ($validate->fails()) { // en caso si los datos fallan la validacion
+            // La validacion ha fallado
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Datos incorrectos no se realizo el cambio de contraseña',
+                'errors' => $validate->errors()
+            );
+        } else {
+            // 4.- Quitar los campos que no quiero actualizar de la peticion.
+            unset($paramsArray['created_at']);
+            unset($paramsArray['idUsuario']);
+
+            // Codificar el new password
+            $pwd = hash('sha256', $paramsArray['password']); // se cifra la contraseña 4 veces
+            $paramsArray['password'] = $pwd;
+
+            try {
+                // 5.- Actualizar los datos en la base de datos.
+                User::where('id', $params->idUsuario)->update($paramsArray);
+
+                // var_dump($user_update);
+                // die();
+                // 6.- Devolver el array con el resultado.
+                $data = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'La contraseña se ha modificado correctamente.',
+                    'changes' => $paramsArray
+                );
+            } catch (Exception $e) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'La contraseña no se ha modificado.',
+                    // 'error' => $e
+                );
+            }
+        }
+        return response()->json(
+            $data,
+            $data['code']
+        );
     }
 }

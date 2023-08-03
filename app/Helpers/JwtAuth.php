@@ -46,7 +46,7 @@ class JwtAuth
             $token = array(
                 'sub' => $user->id,
                 'nombres' => $user->nombres,
-                'rol' => $user->rol,
+                'cargo' => $user->cargo,
                 'usuario' => $user->user,
                 'rol' => $user->rol,
                 'estado' => $user->estado,

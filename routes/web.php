@@ -22,6 +22,7 @@ Route::group(['middleware' => ['api.auth']], function () {
     // /*************RUTAS PROTEGIDAS PARA USUARIOS********/ 
     Route::resource('/api/user', UserController::class);
     Route::post('/api/user/buscarusuarios', [UserController::class, 'buscarUsuarios']);
+    Route::post('/api/user/changespassword', [UserController::class, 'changesPassword']);
 
     // /*************RUTAS PROTEGIDAS PARA EVENTOS********/ 
     Route::resource('/api/eventos', EventoControlador::class);
