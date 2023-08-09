@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use App\Models\Evento;
+use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
@@ -277,6 +278,51 @@ class EventoControlador extends Controller
                 'error' => $e->getMessage()
             );
         }
+        return response()->json($data, $data['code']);
+    }
+
+    // Para cambiar de estado a concluido
+    function cambiarEstadoConcluido()
+    {
+
+        // Obtener todos los eventos habilitados
+        $eventos = Evento::all();
+
+        // Obtener la fecha y hora local actual del servidor
+        $fechaHoraLocal = Carbon::now();
+
+        if ($eventos->isNotEmpty()) {
+            foreach ($eventos as $evento) {
+
+                $fechaLocal = Carbon::parse($fechaHoraLocal);
+                $fechaBaseDatos = Carbon::parse($evento->fecha_hora_evento);
+
+                $fechaSoloLocal = $fechaLocal->toDateString();
+                $fechaSoloBD = $fechaBaseDatos->toDateString();
+
+                $local = Carbon::parse($fechaSoloLocal);
+                $bd = Carbon::parse($fechaSoloBD);
+
+                // Comparar las fechas
+                if ($local->greaterThan($bd)) {
+                    $evento->estado = 'Concluido';
+                    $evento->save();
+                }
+            }
+
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'message' => 'Estados de todos los eventos actualizados',
+            );
+        } else {
+            $data = array(
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'No se encontraron eventos',
+            );
+        }
+
         return response()->json($data, $data['code']);
     }
 }

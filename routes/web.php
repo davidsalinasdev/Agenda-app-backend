@@ -26,6 +26,7 @@ Route::group(['middleware' => ['api.auth']], function () {
 
     // /*************RUTAS PROTEGIDAS PARA EVENTOS********/ 
     Route::resource('/api/eventos', EventoControlador::class);
+    Route::post('/api/eventos/cambiarestado', [EventoControlador::class, 'cambiarEstadoConcluido']);
 
     // /*************RUTAS PROTEGIDAS PARA PUNTOS********/ 
     Route::resource('/api/puntos', PuntosController::class);
