@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agenda;
+use App\Models\Punto;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,24 +17,6 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        //  Encuentra por id del evento
-        $agenda = Agenda::with('evento', 'user')->orderBy('id', 'asc')->get();
-
-        // Comprobamos si es un objeto eso quiere decir si exist en la base de datos.
-        if (is_object($agenda)) {
-            $data = array(
-                'code' => 200,
-                'status' => 'success',
-                'agenda' => $agenda
-            );
-        } else {
-            $data = array(
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No tiene nada en su bandeja de agenda'
-            );
-        }
-        return response()->json($data, $data['code']);
     }
 
     /**
@@ -64,7 +48,24 @@ class AgendaController extends Controller
      */
     public function show($id)
     {
-        //
+        //  Encuentra por id del evento
+        $agenda = Agenda::where('users_id', $id)->with('evento', 'user')->orderBy('id', 'desc')->get();
+
+        // Comprobamos si es un objeto eso quiere decir si exist en la base de datos.
+        if (is_object($agenda)) {
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'agenda' => $agenda
+            );
+        } else {
+            $data = array(
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'No tiene nada en su bandeja de agenda'
+            );
+        }
+        return response()->json($data, $data['code']);
     }
 
     /**
@@ -154,6 +155,66 @@ class AgendaController extends Controller
                     'status' => 'error',
                     'code' => 400,
                     'message' => 'No se pudo eliminar la agenda, intente nuevamente',
+                    'error' => $e->getMessage()
+                );
+            }
+        }
+        return response()->json($data, $data['code']);
+    }
+
+    function destroyAllPoinst(Request $request)
+    {
+
+        // 1.-Recoger los usuarios por post
+        $params = (object) $request->all(); // Devulve un obejto
+        $paramsArray = $request->all(); // Devulve un Array
+
+        // 2.-Validar datos
+        $validate = Validator::make($request->all(), [
+            'eventos_id' => 'required',
+            'users_id' => 'required'
+        ]);
+
+        // Comprobar si los datos son validos
+        if ($validate->fails()) { // en caso si los datos fallan la validacion
+            // La validacion ha fallado
+            $data = array(
+                'status' => 'Error',
+                'code' => 400,
+                'message' => 'Los datos enviados no son correctos',
+                'agenda' => $request->all(),
+                'errors' => $validate->errors()
+            );
+        } else {
+
+            try {
+                // Eliminación de una todos los que coincidan
+                Punto::where([
+                    'eventos_id' => $params->eventos_id,
+                    'users_id' => $params->users_id
+                ])->delete();
+
+                Agenda::where([
+                    'eventos_id' => $params->eventos_id,
+                    'users_id' => $params->users_id
+                ])->delete();
+
+
+
+                $data = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'Te saliste por completo de esta agenda',
+                );
+
+                // Confirmar la transacción si todo va bien
+
+            } catch (Exception $e) {
+
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No se pudo salir de la agenda, intente nuevamente',
                     'error' => $e->getMessage()
                 );
             }

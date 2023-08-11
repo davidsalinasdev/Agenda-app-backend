@@ -21,6 +21,6 @@ class Punto extends Model
     // relacion de muchos a uno inversa(muchos a uno)
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'users_id'); // Recibe a eventos
+        return $this->belongsTo('App\Models\User', 'users_id'); // Recibe a usuarios
     }
 }

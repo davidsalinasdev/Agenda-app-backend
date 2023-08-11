@@ -42,6 +42,7 @@ class EventoControlador extends Controller
         $params = (object) $request->all(); // Devulve un obejto
         $paramsArray = $request->all(); // Devulve un Array
 
+
         // 2.-Validar datos
         $validate = Validator::make($request->all(), [
             'evento' => 'required|unique:eventos',
@@ -68,6 +69,7 @@ class EventoControlador extends Controller
             // Si la validacion pasa correctamente
             // Crear el objeto evento para guardar en la base de datos
             $evento = new Evento();
+
             $evento->evento = $params->evento;
             $evento->lugar_evento = $params->lugar_evento;
             $evento->fecha_hora_evento = $params->fecha_hora_evento;

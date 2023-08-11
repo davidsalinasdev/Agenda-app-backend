@@ -35,4 +35,5 @@ Route::group(['middleware' => ['api.auth']], function () {
     // /*************RUTAS PROTEGIDAS PARA AGENDAS********/ 
     Route::resource('/api/agendas', AgendaController::class);
     Route::post('/api/agendas/destroyagenda', [AgendaController::class, 'destroyAgenda']);
+    Route::post('/api/agendas/destroyallpoinst', [AgendaController::class, 'destroyAllPoinst']);
 });
