@@ -104,7 +104,7 @@ class PuntosController extends Controller
                     $data = array(
                         'status' => 'success',
                         'code' => 200,
-                        'message' => 'El punto ya existe',
+                        'message' => 'El punto se ha creado correctamente',
                     );
                 } else {
                     $agenda = new Agenda();
