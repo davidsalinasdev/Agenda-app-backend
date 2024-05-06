@@ -65,8 +65,6 @@ class UsuariosSeeder extends Seeder
         $user->estado = 'Habilitado';
         $user->save();
 
-
-
         // Invitado
         $user = new User();
         $user->nombres = "Naomi Orellana";

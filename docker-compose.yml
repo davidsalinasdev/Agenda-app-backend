@@ -1,14 +1,16 @@
+version: "3"
+
 services:
-    postgres:
-        image: postgres:latest
+    mysql:
+        image: mysql:latest
         ports:
-            - "3004:5432"
+            - "3308:3306"
         environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=clave123
-            - POSTGRES_DB=agendabd
+            - MYSQL_ROOT_PASSWORD=clave123
+            - MYSQL_DATABASE=agendabd
         volumes:
-            - postgres_data:/var/lib/postgresql/data
+            - mysql_data:/var/lib/mysql
+
 volumes:
-    postgres_data:
+    mysql_data:
 # docker compose up
